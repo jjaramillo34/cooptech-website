@@ -70,7 +70,9 @@ const Mission = () => {
           {missionPoints.map(({ icon: Icon, title, description }, index) => (
             <Card
               key={title}
-              ref={(el) => (cardsRef.current[index] = el as HTMLDivElement)}
+              ref={(el) => {
+                if (el) cardsRef.current[index] = el;
+              }}
               className="border-primary/20 hover:border-primary/40 transition-colors"
             >
               <CardContent className="pt-6">
@@ -92,4 +94,4 @@ const Mission = () => {
   );
 };
 
-export default Mission; 
+export default Mission;

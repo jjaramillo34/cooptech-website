@@ -100,7 +100,9 @@ const Programs = () => {
           {programs.map(({ title, description, image, link }, index) => (
             <Card
               key={title}
-              ref={(el) => (cardsRef.current[index] = el as HTMLDivElement)}
+              ref={(el) => {
+                if (el) cardsRef.current[index] = el;
+              }}
               className="border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg group"
             >
               <CardContent className="p-0">

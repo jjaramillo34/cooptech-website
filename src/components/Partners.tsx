@@ -79,7 +79,9 @@ const Partners = () => {
           {partners.map((partner, index) => (
             <div
               key={partner.name}
-              ref={(el) => cardsRef.current[index] = el}
+              ref={(el) => {
+                if (el) cardsRef.current[index] = el;
+              }}
               className="aspect-square bg-background rounded-lg shadow-md p-4 transform hover:scale-105 transition-transform flex items-center justify-center"
             >
               <Image

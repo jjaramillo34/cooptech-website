@@ -11,11 +11,11 @@ declare global {
         TranslateElement: new (config: {
           pageLanguage: string;
           includedLanguages: string;
-          layout: any;
-        }, element: string) => void & {
-          InlineLayout: {
-            SIMPLE: any;
-          };
+          layout: number;
+        }, element: string) => void;
+        InlineLayout: {
+          SIMPLE: number;
+          HORIZONTAL: number;
         };
       };
     };
@@ -24,14 +24,13 @@ declare global {
 
 export default function LanguageSelector() {
   useEffect(() => {
-    // Initialize Google Translate
     window.googleTranslateElementInit = () => {
       if (window.google && window.google.translate) {
         new window.google.translate.TranslateElement(
           {
             pageLanguage: "en",
             includedLanguages: "en,es,zh-CN,ar,bn,ru,ko,ht",
-            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+            layout: 0, // SIMPLE layout
           },
           "google_translate_element"
         );

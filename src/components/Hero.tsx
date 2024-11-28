@@ -103,8 +103,14 @@ const Hero = () => {
         },
       });
 
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else if (typeof err === 'string') {
+        setError(err);
+      } else {
+        setError("An unexpected error occurred");
+      }
     }
   };
 
