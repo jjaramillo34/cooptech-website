@@ -2,83 +2,66 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { Megaphone, AppWindow } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-const Announcement = () => {
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+export default function Announcement() {
   const announcementRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Initial slide down animation
-    gsap.from(announcementRef.current, {
-      y: -100,
-      opacity: 0,
-      duration: 0.8,
-      ease: "power3.out",
-    });
+    const announcement = announcementRef.current;
+    const text = textRef.current;
 
-    // Subtle pulse animation for icon
-    gsap.to(".announcement-icon", {
-      scale: 1.1,
-      duration: 1,
-      repeat: -1,
-      yoyo: true,
-      ease: "power1.inOut",
-    });
+    if (announcement && text) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: announcement,
+          start: "top center",
+          end: "bottom center",
+          toggleActions: "play none none reverse",
+        },
+      });
 
-    // Text fade animation
-    gsap.from(textRef.current, {
-      opacity: 0,
-      delay: 0.3,
-      duration: 0.8,
-    });
+      tl.from(announcement, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+      }).from(
+        text,
+        {
+          opacity: 0,
+          y: 20,
+          duration: 0.6,
+        },
+        "-=0.4"
+      );
+    }
 
     return () => {
-      // Cleanup animations
-      gsap.killTweensOf([announcementRef.current, ".announcement-icon", textRef.current]);
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
   return (
     <div
       ref={announcementRef}
-      className={cn(
-        "border-y border-primary/20",
-        "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-      )}
+      className="bg-primary text-primary-foreground py-12 md:py-16"
     >
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
-          <div className="flex items-center gap-3">
-            <div className="bg-primary/10 p-3 rounded-full">
-              <AppWindow className="announcement-icon h-6 w-6 text-primary" />
-            </div>
-            <span className="font-semibold text-foreground">
-              New Online System
-            </span>
-          </div>
-
-          <div ref={textRef} className="flex-1 text-center md:text-left">
-            <h4 className="text-lg text-muted-foreground">
-              We are excited to announce that we will be launching our new
-              online enrollment system shortly. Please keep checking here for
-              the live link.
-            </h4>
-          </div>
-
-          <Button
-            className="gap-2"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            <Megaphone className="h-4 w-4" />
-            <span>Learn More</span>
-          </Button>
-        </div>
+      <div
+        ref={textRef}
+        className="container mx-auto px-4 text-center"
+      >
+        <h2 className="text-2xl md:text-3xl font-bold mb-4">
+          Enrollment Now Open for 2024-2025!
+        </h2>
+        <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
+          Join our community of learners and start your journey towards a successful career in the trades.
+        </p>
       </div>
     </div>
   );
-};
-
-export default Announcement; 
+} 
