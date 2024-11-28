@@ -3,6 +3,12 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Separator } from "@/components/ui/separator"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Co-op Tech - Gallery",
+  description: "Explore our collection of photos showcasing our facilities, staff, and programs.",
+}
 
 const galleryImages = [
   {
