@@ -6,6 +6,7 @@ interface Props {
   params: {
     slug: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateStaticParams() {
@@ -13,7 +14,7 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export default async function ProgramPage({ params }: Props) {
+export default async function ProgramPage({ params, searchParams }: Props) {
   const programData = await getProgramData(params.slug);
   const content = await getMarkdownContent(programData.content);
 
