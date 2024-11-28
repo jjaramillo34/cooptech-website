@@ -3,12 +3,11 @@ import { getProgramData, getMarkdownContent, getAllProgramSlugs } from '@/lib/ma
 import { Button } from '@/components/ui/button';
 import { Metadata } from 'next';
 
-type Props = {
+interface PageProps {
   params: { slug: string };
-  searchParams: Record<string, string | string[] | undefined>;
-};
+}
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const programData = await getProgramData(params.slug);
   return {
     title: programData.title,
@@ -21,7 +20,7 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export default async function ProgramPage({ params }: Props) {
+export default async function ProgramPage({ params }: PageProps) {
   const programData = await getProgramData(params.slug);
   const content = await getMarkdownContent(programData.content);
 
