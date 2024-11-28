@@ -6,14 +6,16 @@ const nextConfig = {
     optimizePackageImports: ["@radix-ui/react-icons", "lucide-react"],
   },
   images: {
-    domains: ["images.unsplash.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.mapbox.com",
+      },
+    ],
   },
-  // Enable static optimization
   poweredByHeader: false,
   compress: true,
-  // Configure webpack for optimizations
   webpack: (config, { dev, isServer }) => {
-    // Optimize CSS only in production
     if (!dev && !isServer) {
       config.optimization = {
         ...config.optimization,

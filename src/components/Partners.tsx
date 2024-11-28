@@ -5,11 +5,6 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-// Register ScrollTrigger plugin
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 const partners = [
   { name: "NYC DOS", image: "/Pics/Partners/nycdos.webp" },
   { name: "Elite", image: "/Pics/Partners/elite.webp" },
@@ -28,6 +23,9 @@ const Partners = () => {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    // Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
     // Heading animation
     const heading = sectionRef.current?.querySelector("h2");
     if (heading) {
@@ -60,6 +58,7 @@ const Partners = () => {
       }
     });
 
+    // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };

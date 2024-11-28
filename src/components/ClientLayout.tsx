@@ -1,32 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
-import LanguageSelector from "@/components/LanguageSelector";
+import React from 'react';
+import { Header } from './Header';
+import Footer from './Footer';
 
-interface ClientLayoutProps {
+export interface ClientLayoutProps {
   children: React.ReactNode;
 }
 
-export default function ClientLayout({ children }: ClientLayoutProps) {
-  useEffect(() => {
-    // Remove Google Translate's automatic top padding
-    const observer = new MutationObserver(() => {
-      document.body.style.top = '0px';
-      document.body.style.position = 'static';
-    });
-
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ['style'],
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
+export const ClientLayout = ({ children }: ClientLayoutProps) => {
   return (
-    <>
-      <LanguageSelector />
-      {children}
-    </>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main>{children}</main>
+      <Footer />
+    </div>
   );
-} 
+}; 

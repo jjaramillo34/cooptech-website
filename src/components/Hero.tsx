@@ -2,18 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Hero() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
     try {
       // Hero text animation
       const tl = gsap.timeline();
@@ -62,6 +63,11 @@ export default function Hero() {
         setError('An unknown error occurred');
       }
     }
+
+    // Cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
   }, []);
 
   if (error) {

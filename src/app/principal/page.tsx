@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ClientLayout from "@/components/ClientLayout";
+import { ClientLayout } from "@/components/ClientLayout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
-import ClientLayout from "@/components/ClientLayout";
+import { ClientLayout } from "@/components/ClientLayout";
 
 export default function AboutPage() {
   return (

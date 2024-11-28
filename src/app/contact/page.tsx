@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail } from "lucide-react";
 import Map from "@/components/Map";
-import ClientLayout from "@/components/ClientLayout";
+import { ClientLayout } from "@/components/ClientLayout";
 import type { Campus } from "@/config/locations";
 
 const locations: Campus[] = [
@@ -86,4 +86,4 @@ export default function ContactPage() {
       </main>
     </ClientLayout>
   );
-} 
+}

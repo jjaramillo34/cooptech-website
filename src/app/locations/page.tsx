@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { campuses, getAllLocations, getAllOfferings, type Campus } from "@/config/locations";
 import Map from "@/components/Map";
-import ClientLayout from "@/components/ClientLayout";
+import { ClientLayout } from "@/components/ClientLayout";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
