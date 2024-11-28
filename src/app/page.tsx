@@ -8,7 +8,7 @@ import AvailableTrades from "@/components/AvailableTrades"
 
 export default function Home() {
   return (
-    <main>
+    <>
       <Announcement />
       <Hero />
       <Mission />
@@ -16,6 +16,6 @@ export default function Home() {
       <Programs />
       <Partners />
       <ScrollToTop />
-    </main>
+    </>
   )
 }
